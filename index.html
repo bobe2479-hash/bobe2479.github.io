@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PD Portfolio | 사람 냄새 나는 이야기를 만듭니다</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts: Pretendard for Korean, Inter for English -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Pretendard', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            red: '#E50914', // Cinematic Red (like Netflix)
+                            dark: '#0a0a0a',
+                            gray: '#1f1f1f',
+                            light: '#f5f5f5'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #f5f5f5;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #E50914;
+        }
+
+        /* Reveal animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Cinematic Grain Effect overlay */
+        .film-grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.04;
+            background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+        }
+
+        /* Image hover zoom */
+        .project-card:hover .project-image {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-red selection:text-white">
+
+    <div class="film-grain"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-40 top-0 bg-brand-dark/80 backdrop-blur-md border-b border-white/10 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold tracking-wider text-white">DIRECTOR<span class="text-brand-red">.</span></a>
+            <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-400">
+                <a href="#about" class="hover:text-white transition-colors">About</a>
+                <a href="#skills" class="hover:text-white transition-colors">Skills</a>
+                <a href="#works" class="hover:text-white transition-colors">Works</a>
+                <a href="#channels" class="hover:text-white transition-colors">Channels</a>
+            </div>
+            <button class="md:hidden text-gray-300 hover:text-white" id="mobile-menu-btn">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background elements for cinematic feel -->
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-brand-dark/50 to-brand-dark z-10"></div>
+        <div class="absolute inset-0 bg-[url('https://placehold.co/1920x1080/1a1a1a/333333?text=Cinematic+Background')] bg-cover bg-center opacity-30"></div>
+        
+        <div class="relative z-20 text-center px-6 reveal">
+            <div class="inline-flex items-center space-x-2 mb-6 px-3 py-1 rounded-full bg-white/5 border border-white/10">
+                <span class="w-2 h-2 rounded-full bg-brand-red animate-pulse"></span>
+                <span class="text-xs font-semibold tracking-widest text-gray-300 uppercase">Rec</span>
+            </div>
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-4 leading-tight">
+                당신의 이야기가 <br class="md:hidden" />누군가에게 작은 온기가 되도록.
+            </h1>
+            <p class="text-lg md:text-2xl text-gray-400 font-light mb-10 max-w-2xl mx-auto">
+                세상을 담는 프레임, 마음을 움직이는 편집. <br>
+                진보배의 포트폴리오입니다.
+            </p>
+            <a href="#works" class="inline-block px-8 py-4 bg-white text-black font-semibold rounded-sm hover:bg-brand-red hover:text-white transition-all duration-300 transform hover:-translate-y-1">
+                View My Works
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-brand-dark relative z-20">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-16 reveal">
+                <div class="w-full md:w-5/12 relative">
+                    <!-- Placeholder Profile Image -->
+                    <div class="aspect-[4/5] bg-brand-gray rounded-sm overflow-hidden relative shadow-2xl shadow-brand-red/10">
+                        <img src="https://placehold.co/800x1000/1f1f1f/555555?text=Profile+Photo" alt="Profile" class="object-cover w-full h-full grayscale hover:grayscale-0 transition-all duration-500">
+                    </div>
+                </div>
+                <div class="w-full md:w-7/12">
+                    <h2 class="text-sm font-bold tracking-widest text-brand-red uppercase mb-3">About Me</h2>
+                    <h3 class="text-3xl md:text-4xl font-bold mb-6">스토리의 힘을 믿는 연출가</h3>
+                    <p class="text-gray-400 leading-relaxed mb-6 text-lg">
+                        미디어 커뮤니케이션을 전공하며 미디어가 가진 사회적 영향력과 스토리텔링의 본질을 탐구해 왔습니다. 
+                        단순한 웃음을 넘어 사람들의 마음속에 깊은 울림을 남기는 <strong>디지털 콘텐츠 제작과 영상 연출</strong>에 집중하고 있습니다.
+                    </p>
+                    <p class="text-gray-400 leading-relaxed mb-8 text-lg">
+                        다양한 인물들의 삶의 궤적을 쫓는 다큐멘터리부터, 일상의 재미를 발굴하는 웹 예능까지. 
+                        장르의 경계를 넘어 시청자와 공감하고 소통할 수 있는 콘텐츠를 기획하고 제작합니다.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-6 border-t border-white/10 pt-8">
+                        <div>
+                            <h4 class="text-white font-semibold mb-1">전공</h4>
+                            <p class="text-gray-500 text-sm">Media & Communication</p>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-semibold mb-1">관심 분야</h4>
+                            <p class="text-gray-500 text-sm">예능 연출 / 디지털 오리지널 콘텐츠</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-24 bg-brand-gray relative z-20">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-sm font-bold tracking-widest text-brand-red uppercase mb-3">Professional Skills</h2>
+                <h3 class="text-3xl md:text-4xl font-bold">콘텐츠 제작 역량</h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Skill 1 -->
+                <div class="bg-brand-dark p-8 border border-white/5 rounded-sm hover:border-brand-red/50 transition-colors reveal">
+                    <div class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center text-2xl text-white mb-6">
+                        <i class="fas fa-film"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3">Video Editing</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                        영상 흐름과 리듬감을 살린 컷 편집, 시각적 몰입도를 높이는 색보정 기술을 보유하고 있습니다.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li><i class="fas fa-check text-brand-red mr-2"></i> Adobe Premiere Pro</li>
+                        <li><i class="fas fa-check text-brand-red mr-2"></i> DaVinci Resolve</li>
+                        <li><i class="fas fa-check text-brand-red mr-2"></i> Adobe After Effects</li>
+                    </ul>
+                </div>
+
+                <!-- Skill 2 -->
+                <div class="bg-brand-dark p-8 border border-white/5 rounded-sm hover:border-brand-red/50 transition-colors reveal delay-100">
+                    <div class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center text-2xl text-white mb-6">
+                        <i class="fas fa-camera-retro"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3">Camera Operation</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                        현장의 생동감을 담아내는 역동적인 앵글 설계와 안정적인 촬영 운용이 가능합니다.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li><i class="fas fa-check text-brand-red mr-2"></i> Sony α7S III (Mirrorless)</li>
+                        <li><i class="fas fa-check text-brand-red mr-2"></i> Sony PXW-Z90V (Camcorder)</li>
+                        <li><i class="fas fa-check text-brand-red mr-2"></i> Gimbal & Lighting setup</li>
+                    </ul>
+                </div>
+
+                <!-- Skill 3 -->
+                <div class="bg-brand-dark p-8 border border-white/5 rounded-sm hover:border-brand-red/50 transition-colors reveal delay-200">
+                    <div class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center text-2xl text-white mb-6">
+                        <i class="fas fa-headphones"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3">Audio Production</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                        콘텐츠의 완성도를 높이는 현장 동시녹음 및 후반 오디오 믹싱, BGM 선정 감각을 갖추고 있습니다.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li><i class="fas fa-check text-brand-red mr-2"></i> Location Sound Recording (Zoom H6)</li>
+                        <li><i class="fas fa-check text-brand-red mr-2"></i> Audio Mixing & Mastering</li>
+                        <li><i class="fas fa-check text-brand-red mr-2"></i> Sound Design</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Selected Works Section -->
+    <section id="works" class="py-24 bg-brand-dark relative z-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-end mb-16 reveal">
+                <div>
+                    <h2 class="text-sm font-bold tracking-widest text-brand-red uppercase mb-3">Portfolio</h2>
+                    <h3 class="text-3xl md:text-4xl font-bold">Selected Works</h3>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Project 1 -->
+                <a href="https://www.youtube.com/@%EC%9E%83%EC%96%B4%EB%B2%84%EB%A6%B0%EC%82%AC%EB%9E%8C%EC%9D%84%EC%B0%BE%EC%95%84%EC%84%9C" target="_blank" rel="noopener noreferrer" class="project-card group cursor-pointer reveal block">
+                    <div class="relative overflow-hidden aspect-video bg-zinc-800 rounded-sm mb-4">
+                        <img src="https://placehold.co/1280x720/1f1f1f/555?text=Documentary+Scene" alt="잃어버린 사람을 찾아서" class="project-image object-cover w-full h-full transition-transform duration-700">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <div class="w-16 h-16 bg-brand-red rounded-full flex items-center justify-center text-white pl-1 shadow-lg transform scale-50 group-hover:scale-100 transition-transform duration-300">
+                                <i class="fas fa-play text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="text-xs font-semibold text-brand-red border border-brand-red/30 px-2 py-1 rounded-sm mb-2 inline-block">휴먼 다큐채널</span>
+                            <h4 class="text-2xl font-bold mb-2 group-hover:text-brand-red transition-colors">'잃어버린 사람을 찾아서'</h4>
+                            <p class="text-gray-400 text-sm line-clamp-2">바쁘게 돌아가는 현대 사회 속에서 우리가 잊고 살아가는 소중한 사람들과 감정에 대해 조명하는 휴먼 다큐멘터리 채널입니다.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Project 2 -->
+                <div class="project-card group cursor-pointer reveal delay-100">
+                    <div class="relative overflow-hidden aspect-video bg-zinc-800 rounded-sm mb-4">
+                        <img src="https://placehold.co/1280x720/1f1f1f/555?text=Web+Variety+Show" alt="해방클럽" class="project-image object-cover w-full h-full transition-transform duration-700">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <div class="w-16 h-16 bg-brand-red rounded-full flex items-center justify-center text-white pl-1 shadow-lg transform scale-50 group-hover:scale-100 transition-transform duration-300">
+                                <i class="fas fa-play text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="text-xs font-semibold text-brand-red border border-brand-red/30 px-2 py-1 rounded-sm mb-2 inline-block">휴먼 드라마 웹 예능</span>
+                            <h4 class="text-2xl font-bold mb-2 group-hover:text-brand-red transition-colors">'해방클럽'</h4>
+                            <p class="text-gray-400 text-sm line-clamp-2">청춘들의 현실적인 고민과 스트레스를 유쾌하게 풀어내고, 작은 일탈을 통해 해방감을 선사하는 공감형 웹 예능 프로그램.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <a href="https://www.youtube.com/watch?v=OK80PilrrpQ" target="_blank" rel="noopener noreferrer" class="project-card group cursor-pointer reveal block">
+                    <div class="relative overflow-hidden aspect-video bg-zinc-800 rounded-sm mb-4">
+                        <img src="https://placehold.co/1280x720/1f1f1f/555?text=Fake+Log" alt="페이크로그" class="project-image object-cover w-full h-full transition-transform duration-700">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <div class="w-16 h-16 bg-brand-red rounded-full flex items-center justify-center text-white pl-1 shadow-lg transform scale-50 group-hover:scale-100 transition-transform duration-300">
+                                <i class="fas fa-play text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="text-xs font-semibold text-brand-red border border-brand-red/30 px-2 py-1 rounded-sm mb-2 inline-block">웹 예능 (1시간 편성)</span>
+                            <h4 class="text-2xl font-bold mb-2 group-hover:text-brand-red transition-colors">'페이크로그' (Fake-log)</h4>
+                            <p class="text-gray-400 text-sm line-clamp-2">브이로그(Vlog) 형식을 빌려 페이크 다큐멘터리 기법으로 제작된 1시간 분량의 코미디 웹 예능. 일상 속 예측 불가능한 반전 묘미.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Project 4 -->
+                <a href="https://www.youtube.com/watch?v=GFcSbF9lOAs" target="_blank" rel="noopener noreferrer" class="project-card group cursor-pointer reveal delay-100 block">
+                    <div class="relative overflow-hidden aspect-video bg-zinc-800 rounded-sm mb-4">
+                        <img src="https://placehold.co/1280x720/1f1f1f/555?text=Promotional+Video" alt="비마 응원단 홍보 영상" class="project-image object-cover w-full h-full transition-transform duration-700">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <div class="w-16 h-16 bg-brand-red rounded-full flex items-center justify-center text-white pl-1 shadow-lg transform scale-50 group-hover:scale-100 transition-transform duration-300">
+                                <i class="fas fa-play text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="text-xs font-semibold text-brand-red border border-brand-red/30 px-2 py-1 rounded-sm mb-2 inline-block">홍보 영상 / 커머셜</span>
+                            <h4 class="text-2xl font-bold mb-2 group-hover:text-brand-red transition-colors">비마 응원단 홍보 영상</h4>
+                            <p class="text-gray-400 text-sm line-clamp-2">대학 응원단의 역동적인 에너지와 열정을 교차 편집과 화려한 트랜지션으로 담아낸 감각적인 프로모션 비디오.</p>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Channels & Footer Section -->
+    <section id="channels" class="py-24 bg-black relative z-20 border-t border-white/5">
+        <div class="max-w-4xl mx-auto px-6 text-center reveal">
+            <h2 class="text-sm font-bold tracking-widest text-brand-red uppercase mb-3">Let's Connect</h2>
+            <h3 class="text-3xl font-bold mb-8">저의 더 많은 이야기와 일상</h3>
+            
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-6 mb-16">
+                <!-- YouTube Channel -->
+                <a href="https://www.youtube.com/@%EC%9E%83%EC%96%B4%EB%B2%84%EB%A6%B0%EC%82%AC%EB%9E%8C%EC%9D%84%EC%B0%BE%EC%95%84%EC%84%9C" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-4 bg-brand-gray border border-white/10 px-8 py-5 rounded-sm hover:border-brand-red transition-all w-full sm:w-auto">
+                    <i class="fab fa-youtube text-3xl text-brand-red group-hover:scale-110 transition-transform"></i>
+                    <div class="text-left">
+                        <p class="text-xs text-gray-400 mb-1">YouTube Channel</p>
+                        <p class="font-bold text-lg">잃어버린 사람을 찾아서</p>
+                    </div>
+                </a>
+
+                <!-- Personal Blog -->
+                <a href="https://blog.naver.com/contentlab_log" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-4 bg-brand-gray border border-white/10 px-8 py-5 rounded-sm hover:border-[#2DB400] transition-all w-full sm:w-auto">
+                    <i class="fab fa-blogger text-3xl text-gray-300 group-hover:text-[#2DB400] group-hover:scale-110 transition-transform"></i>
+                    <div class="text-left">
+                        <p class="text-xs text-gray-400 mb-1">Naver Blog</p>
+                        <p class="font-bold text-lg">Content Analyst</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="flex justify-center space-x-6 mb-12">
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-brand-red transition-all">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-brand-red transition-all">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+
+            <p class="text-sm text-gray-600">
+                &copy; 2026 Director Portfolio. All Rights Reserved.<br>
+                Designed for creating human storytelling.
+            </p>
+        </div>
+    </section>
+
+    <!-- JavaScript for Animations and Interactions -->
+    <script>
+        // Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    // Optional: stop observing once revealed
+                    // observer.unobserve(entry.target); 
+                }
+            });
+        };
+
+        const revealOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const revealObserver = new IntersectionObserver(revealCallback, revealOptions);
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Navbar Background on Scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-brand-dark', 'shadow-lg');
+                navbar.classList.remove('bg-brand-dark/80');
+            } else {
+                navbar.classList.add('bg-brand-dark/80');
+                navbar.classList.remove('bg-brand-dark', 'shadow-lg');
+            }
+        });
+
+        // Simple Mobile Menu Toggle (Alert replaced with a visual feature if needed, for now just basic interactivity placeholder)
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        mobileBtn.addEventListener('click', () => {
+            // Expand mobile menu logic could go here. 
+            // For a single page, scrolling naturally works well enough for this scope.
+            console.log("Mobile menu toggled");
+        });
+    </script>
+</body>
+</html>
